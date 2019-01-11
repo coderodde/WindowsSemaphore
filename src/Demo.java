@@ -166,10 +166,6 @@ public class Demo {
             this.emptyCount = new Semaphore(DEFAULT_CAPACITY, 
                                             DEFAULT_CAPACITY);
             this.storage    = new Object[DEFAULT_CAPACITY];
-            
-//            for (int i = 0; i < DEFAULT_CAPACITY; i++) {
-//                this.fillCount.lock(); // Bring the counter to zero.
-//            }
         }
 
         /**
