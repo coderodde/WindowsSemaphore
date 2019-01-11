@@ -22,9 +22,13 @@ interface SemaphoreImpl {
     /**
      * Initialization routine.
      * 
-     * @param counter the amount of threads that can pass without blocking.
+     * @param maxCounter the maximum number of threads that can hold the lock to 
+     * this semaphore at the same time.
+     * 
+     * @param counter the initial number of threads that can enter the 
+     * semaphore.
      */
-    void init(int counter);
+    void init(int maxCounter, int counter);
 
     /**
      * Releases all the resources.

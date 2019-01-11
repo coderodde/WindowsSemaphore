@@ -161,14 +161,15 @@ public class Demo {
          * Constructs this buffer.
          */
         ConcurrentBuffer() {
-            this.mutex      = new Semaphore(1);
-            this.fillCount  = new Semaphore(DEFAULT_CAPACITY);
-            this.emptyCount = new Semaphore(DEFAULT_CAPACITY);
+            this.mutex      = new Semaphore(1, 1);
+            this.fillCount  = new Semaphore(DEFAULT_CAPACITY, 0);
+            this.emptyCount = new Semaphore(DEFAULT_CAPACITY, 
+                                            DEFAULT_CAPACITY);
             this.storage    = new Object[DEFAULT_CAPACITY];
             
-            for (int i = 0; i < DEFAULT_CAPACITY; i++) {
-                this.fillCount.lock(); // Bring the counter to zero.
-            }
+//            for (int i = 0; i < DEFAULT_CAPACITY; i++) {
+//                this.fillCount.lock(); // Bring the counter to zero.
+//            }
         }
 
         /**
@@ -279,23 +280,6 @@ public class Demo {
     }
 
     public static void main(String... args) throws InterruptedException {
-        
-//        Semaphore sem = new Semaphore(1);
-//        sem.lock();
-//        sem.lock();
-//        sem.lock();
-//        java.util.concurrent.Semaphore semmm = new java.util.concurrent.Semaphore(1);
-//        semmm.acquire();
-//        semmm.acquire();
-//        System.out.println("shit");
-//        System.out.println("never");
-//
-//        Semaphore sem = new Semaphore(1);
-//        sem.lock();
-//        System.out.println("half");
-//        sem.unlock();
-//        sem.lock();
-//        System.out.println("done!");
         run(2, 3);
     }
 }

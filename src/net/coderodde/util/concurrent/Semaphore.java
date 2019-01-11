@@ -19,9 +19,9 @@ public class Semaphore {
      * @param counter the amount of threads that can lock this semaphore without
      *                blocking.
      */
-    public Semaphore(int counter) {
-        checkCounter(counter);
-        this.impl = new WindowsSemaphoreImpl(counter);
+    public Semaphore(int maxCounter, int counter) {
+        checkCounters(maxCounter, counter);
+        this.impl = new WindowsSemaphoreImpl(maxCounter, counter);
     }
 
     /**
@@ -43,11 +43,23 @@ public class Semaphore {
      * 
      * @param counter the initial amount of permits.
      */
-    private static void checkCounter(int counter) {
-        if (counter <= 0) {
+    private static void checkCounters(int maxCounter, int counter) {
+        if (maxCounter < 1) {
+            throw new IllegalArgumentException(
+                    "Max counter is too small: " + maxCounter + ", " + 
+                    "should be at least 1.");
+        }
+        
+        if (counter < 0) {
             throw new IllegalArgumentException(
                     "The semaphore counter too small: " + counter + ", " +
                     "should be at least 0.");
+        }
+        
+        if (counter > maxCounter) {
+            throw new IllegalArgumentException(
+                    "The counter (" + counter + ") is larger than the max " +
+                    "counter (" + maxCounter + ").");
         }
     }
 }

@@ -29,8 +29,8 @@ final class WindowsSemaphoreImpl implements SemaphoreImpl {
      * 
      * @param counter the amount of permits.
      */
-    WindowsSemaphoreImpl(int counter) {
-        init(counter);
+    WindowsSemaphoreImpl(int maxCounter, int counter) {
+        init(maxCounter, counter);
     }
 
     /**
@@ -52,7 +52,7 @@ final class WindowsSemaphoreImpl implements SemaphoreImpl {
      * Creates the semaphore and loads its handle into <code>semaphoreId</code>.
      */
     @Override
-    public native void init(int counter);
+    public native void init(int maxCounter, int counter);
 
     /**
      * Releases resources.
